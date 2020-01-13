@@ -2,20 +2,30 @@ import java.lang.Math;
 
 public class IntegerBreak {
     public static void main(String[] args) {
-        System.out.println("result: " + Solution(4));
+        int n = 10;
+        array = new int[n+1];
+
+        for(int i= 0;i < n; i++){
+            array[i] = i;
+        }
+        System.out.println("result: " + Solution(n));
     }
 
     public static int Solution(int n) {
-        if (n <= 2) {
+        if (n <= 1) {
             return 1;
         }
 
-        int max = 0;
-        for (int i = 1; i < n - 1; i++) {
-            max = Math.max(Solution(i), Solution(i + 1));
+        for (int i = 1; i < n; i++) {
+            if(array[i] == 0)
+                array[i] = Solution(i);
+            if(array[n-i] == 0)
+                array[n-i] = Solution(n-i);
+            array[n] = Math.max(array[n], array[i]*array[n-i]);
         }
-
-        return max + n;
+        
+        return array[n];
     }
 
+    private static int[] array;
 }
